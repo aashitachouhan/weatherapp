@@ -9,18 +9,13 @@ app.set("view engine","ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
 
-var temp= "";
-var location= "";
-var country= "";
-var temp_max= "";
-var temp_min= "";
-var type="Unknown";
+
 
 app.get("/",function(req,res){
-   res.render("list",{location: location,country: country,temp: temp,temp_max: temp_max,temp_min: temp_min,type: type});
+        res.render("strt");
 })
 
-app.post("/",function(req,res){
+app.post("/weather",function(req,res){
     const query=req.body.cityName;
     const unit="metric";
     const apiKey=process.env.API_KEY;
@@ -31,30 +26,22 @@ app.post("/",function(req,res){
         //console.log(response);
         response.on("data",function(data){
              const weatherData= JSON.parse(data);
-             location=query;
-             country=weatherData.sys.country;
-             temp= weatherData.main.temp;
-             tempmin=weatherData.main.temp_min;
-             tempmax=weatherData.main.temp_max;
-             type= weatherData.weather[0].main;
-             res.render("list",{location: location,country: country,temp: temp,temp_max: temp_max,temp_min: temp_min,type: type});
-            //  const weatherDescription= weatherData.weather[0].description;
-            //  const icon = weatherData.weather[0].icon;
-            //  const imageURL= "http://openweathermap.org/img/wn/" + icon +"@2x.png";
-            //  res.write("<p> The weather is currently " + weatherDescription + "</p>");
-            //  res.write("<h1>The temp. at "+ query +" is "+ temp + " degree Celsius </h1>");
-            //  res.write(" <img src=" + imageURL +" >")
-            //  res.send();
-            //const weatherData= JSON.stringify(data);
+             var location=query;
+             var country=weatherData.sys.country;
+             var temp= weatherData.main.temp;
+             var humidity= weatherData.main.humidity;
+             var pressure= weatherData.main.pressure;
+             var tempmin=weatherData.main.temp_min;
+             var tempmax=weatherData.main.temp_max;
+             var type= weatherData.weather[0].main;
+             var wind=weatherData.wind.speed;
+             //res.render("list",{location: location,country: country,temp: temp,temp_max: temp_max,temp_min: temp_min,type: type});
+             res.render("list",{location: location,humidity: humidity,pressure: pressure,wind: wind,country: country,temp: temp,tempmax: tempmax,tempmin: tempmin,type: type});
         })
     })
 })
 
-let port = process.env.PORT;
-if (port == null || port == "") {
-  port = 3000;
-}
 
-app.listen(port,function(){
+app.listen(process.env.PORT || 3000,function(){
     console.log("Server has started successfully!!");
 })

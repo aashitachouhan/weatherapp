@@ -1,0 +1,12 @@
+<%- include("header1") -%>
+<div class="box">
+    <h1 class="heading">Hello, Weather!! <i class="fas fa-temperature-low" style="color: #ff0000"></i></h1>
+    
+    <form action="/weather" method="post" class="form_class">
+   <input id="cityInput" type="text" name="cityName" placeholder="City Name">
+   <button type="submit" class="butt">Go</button>
+    </form>
+
+  </div>
+    
+<%- include("footer") -%>

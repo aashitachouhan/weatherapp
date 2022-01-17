@@ -1,10 +1,5 @@
 <%- include("header") -%>
 <div class="box">
-    <form action="/" method="post" class="form_class">
-        
-   <input id="cityInput" type="text" name="cityName" placeholder="City Name">
-   <button type="submit" class="butt">Go</button>
-    </form>
 
     <div class="wave -one"></div>
     <div class="wave -two"></div>
@@ -19,12 +14,13 @@
             <i class="fas fa-street-view" style="color: #CEE5D0"></i
             >  <%= location %> <%= country %>
           </h2>
-       
-      <p id="date">WED | nov 23 | 10:49AM</p>
+          <p id="datas">Humidity <i class="fas fa-tint" style="color: #ffffff"></i> - <%= humidity %> km/h</p> 
+      <p id="datas">Wind <i class="fas fa-wind" style="color: #ffffff"></i> - <%= wind %> km/h</p>
+      <p id="datas">Pressure <i class="fas fa-exclamation-circle" style="color: #ffffff"></i> - <%= pressure %> km/h</p>
      
       <h1 class="temp" style="color: #1F1D36"><%= temp %>&deg;C</h1>
       <h3 class="tempmin_max">
-        Min <%= temp_min %>&deg;C | Max <%= temp_max %>&deg;C
+        Min <%= tempmin %>&deg;C | Max <%= tempmax %>&deg;C
       </h3>
     </div>
   </div>
@@ -39,13 +35,15 @@
     if (tempStatus == "Sunny") {
       weathercon.innerHTML =
         "<i class='fas  fa-sun' style='color: #eccc68;'></i>";
-    } else if (tempStatus == "Clouds") {
+    } else if (tempStatus == "Clouds" || tempStatus == "Fog" ) {
+    
       weathercon.innerHTML =
         "<i class='fas fa-cloud' style='color: #f1f2f6;'></i>";
     } else if (tempStatus == "Rainy") {
       weathercon.innerHTML =
         "<i class='fas fa-cloud-showers-heavy' style='color: #a4b0be;'></i>";
     } else {
+      console.log(tempStatus);
       weathercon.innerHTML =
         "<i class='fas fa-cloud-sun' style='color:#f1f2f6;'></i>";
     }
