@@ -19,7 +19,6 @@ app.post("/weather",function(req,res){
     const query=req.body.cityName;
     const unit="metric";
     const apiKey=process.env.API_KEY;
-    //https://api.openweathermap.org/data/2.5/weather?q=Ajmer&units=metric&appid=b320904132dd6dd782303b48f82434ba
     const url = "https://api.openweathermap.org/data/2.5/weather?q=" + query +"&units=" + unit +"&appid="+ apiKey;
 
     https.get(url,function(response){
